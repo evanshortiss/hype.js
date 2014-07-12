@@ -1,7 +1,7 @@
 {
   "name": "hype.js",
   "version": "0.0.0",
-  "description": "JavaScript wrapper for The Hype Machine",
+  "description": "Client-side JavaScript wrapper for The Hype Machine",
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
