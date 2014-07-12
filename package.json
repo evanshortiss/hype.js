@@ -37,7 +37,6 @@
   "dependencies": {
     "xhr": "^1.12.0",
     "xtend": "^3.0.0",
-    "cookie": "~0.1.2",
     "safejson": "~1.0.0"
   }
 }
