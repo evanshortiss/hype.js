@@ -4,9 +4,10 @@ hype.js
 Client-side JavaScript library to consume the Hype Machine JSON API.
 
 ## Hype Machine API
-The Hype Machine JSON API is largely undocumented so this wrapper may be
-incomplete. If anything is missing make a Pull Request with the new feature
-I've missed!
+Initially I used the Hype Machine JSON API to create this module. The issue 
+with this solution was that it wasn't possible to load tracks as the "key" to 
+do so isn't returned by the JSON API. The current technique is to load the 
+page required as you would in a browser and regex out the track JSON.
 
 ## Install
 This module is super easy to use. If used with browserify it can be required
