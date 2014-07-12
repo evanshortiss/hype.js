@@ -1,0 +1,43 @@
+{
+  "name": "hypejs",
+  "version": "0.0.0",
+  "description": "JavaScript wrapper for The Hype Machine",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evan Shhortiss",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^4.2.0",
+    "mocha": "^1.20.1",
+    "lintspaces-cli": "0.0.3",
+    "jshint": "^2.5.2",
+    "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.4",
+    "karma-mocha-reporter": "^0.2.7"
+  },
+  "testling": {
+    "harness": "mocha-bdd",
+    "files": [
+      "./test/index.js"
+    ],
+    "browsers": [
+      "ie/8..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/4..latest",
+      "opera/11.0..latest",
+      "iphone/6..latest",
+      "ipad/6..latest",
+      "android-browser/latest"
+    ]
+  },
+  "dependencies": {
+    "xhr": "^1.12.0",
+    "xtend": "^3.0.0",
+    "cookie": "~0.1.2",
+    "safejson": "~1.0.0"
+  }
+}
