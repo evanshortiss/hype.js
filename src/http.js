@@ -8,8 +8,6 @@ var xhr = require('xhr')
 var HOST = 'http://hypem.com/';
 
 var DEFAULTS = {
-  cors: true,
-  withCredentials: true,
   method: 'GET',
   timeout: 30000
 };
