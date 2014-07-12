@@ -14,7 +14,7 @@ This module is super easy to use. If used with browserify it can be required
 once you do a:
 
 ```
-$ npm install hypejs --save
+$ npm install hype.js --save
 ```
 
 If used as a standalone JavaScript file it will bind to *window.hypejs*.
