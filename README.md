@@ -45,6 +45,7 @@ The JSON returned looks as follows
     "page_mode": "all",
 	"page_name": "latest",
 	"tracks": [{
+		"thumb": "http://static-ak.hypem.net/thumbs_new/ba/2493114.jpg",
 		"type": "normal",
 		"id": "25dgh",
 		"time": 203,
