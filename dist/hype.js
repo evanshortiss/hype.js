@@ -1993,18 +1993,12 @@ exports.getJson = function (path, callback) {
       'Content-Type': 'application/json'
     }
   }, function (err, res, body) {
-    window.dump(body);
     if (err) {
       return callback(err, null);
     } else {
       safejson.parse(body, function (err, json) {
         callback(err, res, json);
       });
-      // try {
-      //   return callback(null, res, JSON.parse(body));
-      // } catch (e) {
-      //   return callback(e, null, null);
-      // }
     }
   });
 };
@@ -2086,8 +2080,8 @@ exports.obsessed  = genProfileFunc('obsessed');
 var http = _dereq_('./http');
 
 var newImageRegex = /http:\/\/static-ak.hypem.net\/thumbs_new\/([^<]+).jpg/g
-  , trackRegex = /<script type="application\/json" id="displayList-data">([^<]+)<\/script>/;
-
+  , trackRegex = /id="displayList-data">([^<]+)<\/script>/
+  , faveCountRegex = /favcount_([^<]+)/g;
 
 /**
  * Find the thumbnial associated with the given track.
@@ -2109,14 +2103,42 @@ function mapTrackThumb (track, thumbs) {
  * @param {Object}
  * @param {String}
  */
-function mapThumbnails (tracks, body) {
-  var urls = body.match(newImageRegex)
+function mapThumbnails (tracks, html) {
+  var urls = html.match(newImageRegex)
     , track = null;
 
   for(var i in tracks.tracks) {
     track = tracks.tracks[i];
     track.thumb = mapTrackThumb(track, urls);
   }
+
+  return tracks;
+}
+
+
+function mapLoves (tracks, html) {
+  // Get 'loves' for tracks
+  var loves = html.match(faveCountRegex).map(function (s) {
+    return s.trim();
+  });
+
+  for (var j = 0; j < tracks.tracks.length; j++) {
+    var track = tracks.tracks[j];
+    for (var i = 0; i < loves.length; i++) {
+      var love = loves[i];
+      if (love.indexOf(track.id) !== -1) {
+        // love looks like 'favcount_{ID}" href="">{FAVCOUNT}'
+        track.favcount = love.substring(love.length, love.indexOf('>') + 1);
+        break;
+      }
+    }
+  }
+}
+
+function getMeta (tracks, html) {
+  // Get thumbnails for tracks
+  mapThumbnails(tracks, html);
+  mapLoves(tracks, html);
 
   return tracks;
 }
@@ -2138,7 +2160,7 @@ exports.getTracksAtPath = function (path, callback) {
 
     if (tracks) {
       try {
-        return callback(null, null, mapThumbnails(JSON.parse(tracks), body));
+        return callback(null, null, getMeta(JSON.parse(tracks), body));
       } catch(e) {
         return callback('Received data in unexpected format.', res, null);
       }
