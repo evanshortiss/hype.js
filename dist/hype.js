@@ -2170,10 +2170,6 @@ exports.getTracksAtPath = function (path, callback) {
   });
 };
 
-
-// need to regex out the background images too as they can't be resolved
-// from the JSON (I think) as they contain hex counter
-
 },{"./http":13}],19:[function(_dereq_,module,exports){
 'use strict';
 
