@@ -51,18 +51,12 @@ exports.getJson = function (path, callback) {
       'Content-Type': 'application/json'
     }
   }, function (err, res, body) {
-    window.dump(body);
     if (err) {
       return callback(err, null);
     } else {
       safejson.parse(body, function (err, json) {
         callback(err, res, json);
       });
-      // try {
-      //   return callback(null, res, JSON.parse(body));
-      // } catch (e) {
-      //   return callback(e, null, null);
-      // }
     }
   });
 };
