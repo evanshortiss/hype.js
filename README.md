@@ -1,7 +1,7 @@
 hype.js
 =======
 
-Client-side JavaScript library to consume the Hype Machine JSON API.
+Client-side JavaScript library to consume The Hype Machine feeds.
 
 ## Hype Machine API
 Initially I used the Hype Machine JSON API to create this module. The issue 
@@ -53,6 +53,7 @@ The JSON returned looks as follows
 		"postid": 2493553,
 		"posturl": "http://www.indieshuffle.com/the-mispers-rio/",
 		"fav": 0,
+		"favcount": "10"
 		"key": "42f1806a636bbce6ab2d6129301100b1",
 		"artist": "The Mispers",
 		"song": "Rio",
