@@ -1,6 +1,6 @@
 {
   "name": "hype.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Client-side JavaScript wrapper for The Hype Machine",
   "main": "./src/index.js",
   "scripts": {
