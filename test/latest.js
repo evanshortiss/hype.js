@@ -31,7 +31,7 @@ describe('Hype latest wrapper', function () {
 
   it('Should return null for err and res, index is too high.', function (done) {
     latest.remixes(20000000, function (err, tracks) {
-      assert.equal(err, null);
+      assert.notEqual(err, null);
       assert.equal(tracks.length, 0);
       done();
     });

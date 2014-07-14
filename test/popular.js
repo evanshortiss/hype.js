@@ -8,7 +8,7 @@ var USER = 'evanshortiss';
 describe('Hype popular wrapper', function () {
   this.timeout(10000);
 
-  it('#all Should get all from latest.', function (done) {
+  it('#now Should get now from latest.', function (done) {
     popular.now(utils.jsonPassing(done));
   });
 
