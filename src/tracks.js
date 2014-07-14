@@ -41,7 +41,15 @@ function mapThumbnails (tracks, html) {
 
 function mapLoves (tracks, html) {
   // Get 'loves' for tracks
-  var loves = html.match(faveCountRegex).map(function (s) {
+  var loves = html.match(faveCountRegex);
+
+  if (!loves) {
+    // Not all pages have love counts
+    return;
+  }
+
+  // Trim whitespace
+  loves.map(function (s) {
     return s.trim();
   });
 
