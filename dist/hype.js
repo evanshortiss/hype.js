@@ -2118,7 +2118,15 @@ function mapThumbnails (tracks, html) {
 
 function mapLoves (tracks, html) {
   // Get 'loves' for tracks
-  var loves = html.match(faveCountRegex).map(function (s) {
+  var loves = html.match(faveCountRegex);
+
+  if (!loves) {
+    // Not all pages have love counts
+    return;
+  }
+
+  // Trim whitespace
+  loves.map(function (s) {
     return s.trim();
   });
 
@@ -2188,7 +2196,7 @@ exports.genApiFunction = function (base, resource) {
     var p = path.join(base, resource, number.toString());
 
     tracks.getTracksAtPath(p, function (err, res, json) {
-      return callback(null, json);
+      return callback(err, json);
     });
   };
 };
