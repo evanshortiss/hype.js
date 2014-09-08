@@ -77,7 +77,7 @@ function getMeta (tracks, html) {
 
 /**
  * Get the tracks for a given URL
- * @param {String}
+ * @param {String} path The path to get tracks for.
  * @param {Function}
  */
 exports.getTracksAtPath = function (path, callback) {
