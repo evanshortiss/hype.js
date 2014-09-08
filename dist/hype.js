@@ -1940,20 +1940,17 @@ function extend() {
 }
 
 },{}],13:[function(_dereq_,module,exports){
+exports.HOST = 'http://hypem.com/';
+exports.REQ_TIMEOUT = (30 * 1000);
+
+},{}],14:[function(_dereq_,module,exports){
 'use strict';
 
-var xhr = _dereq_('xhr')
+var request = _dereq_('request')
   , url = _dereq_('url')
+  , config = _dereq_('./config')
   , xtend = _dereq_('xtend')
   , safejson = _dereq_('safejson');
-
-var HOST = 'http://hypem.com/';
-
-var DEFAULTS = {
-  method: 'GET',
-  timeout: 30000
-};
-
 
 /**
  * Perform an API request.
@@ -1961,8 +1958,11 @@ var DEFAULTS = {
  * @param {Object}
  * @param {Function}
  */
-function request (opts, callback) {
-  xhr(xtend(DEFAULTS, opts), callback);
+function doRequest (opts, callback) {
+  request(xtend({
+    method: 'GET',
+    timeout: config.REQ_TIMEOUT
+  }, opts), callback);
 }
 
 
@@ -1973,9 +1973,9 @@ function request (opts, callback) {
  * @param {Function}  callback  Callback function
  */
 exports.get = function (path, callback) {
-  request({
+  doRequest({
     method: 'GET',
-    uri: url.resolve(HOST, path)
+    uri: url.resolve(config.HOST, path)
   }, callback);
 };
 
@@ -1986,11 +1986,14 @@ exports.get = function (path, callback) {
  * @param {Function}  callback  Callback function
  */
 exports.getJson = function (path, callback) {
-  request({
+  doRequest({
     method: 'GET',
-    uri: url.resolve(HOST, path),
+    uri: url.resolve(config.HOST, path),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.1; en-us; GT-N7100 ' +
+        'Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 ' +
+        'Mobile Safari/534.30'
     }
   }, function (err, res, body) {
     if (err) {
@@ -2003,7 +2006,7 @@ exports.getJson = function (path, callback) {
   });
 };
 
-},{"safejson":8,"url":7,"xhr":9,"xtend":12}],14:[function(_dereq_,module,exports){
+},{"./config":13,"request":9,"safejson":8,"url":7,"xtend":12}],15:[function(_dereq_,module,exports){
 'use strict';
 
 // Expose each API section
@@ -2014,7 +2017,7 @@ module.exports = {
   tracks: _dereq_('./tracks')
 };
 
-},{"./latest":15,"./popular":16,"./profile":17,"./tracks":18}],15:[function(_dereq_,module,exports){
+},{"./latest":16,"./popular":17,"./profile":18,"./tracks":19}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var utils = _dereq_('../utils');
@@ -2029,7 +2032,7 @@ exports.fresh     = utils.genApiFunction(BASE_PATH, '/fresh');
 exports.remixes   = utils.genApiFunction(BASE_PATH, '/remix');
 exports.noRemixes = utils.genApiFunction(BASE_PATH, '/noremix');
 
-},{"../utils":19}],16:[function(_dereq_,module,exports){
+},{"../utils":20}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var utils = _dereq_('../utils');
@@ -2045,7 +2048,7 @@ exports.noRemixes   = utils.genApiFunction(BASE_PATH, 'noremix');
 exports.artists     = utils.genApiFunction(BASE_PATH, 'artists');
 // TODO: Add twitter
 
-},{"../utils":19}],17:[function(_dereq_,module,exports){
+},{"../utils":20}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var path = _dereq_('path')
@@ -2074,7 +2077,7 @@ exports.feed      = genProfileFunc('feed');
 exports.history   = genProfileFunc('history');
 exports.obsessed  = genProfileFunc('obsessed');
 
-},{"../tracks":18,"path":1}],18:[function(_dereq_,module,exports){
+},{"../tracks":19,"path":1}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var http = _dereq_('./http');
@@ -2154,7 +2157,7 @@ function getMeta (tracks, html) {
 
 /**
  * Get the tracks for a given URL
- * @param {String}
+ * @param {String} path The path to get tracks for.
  * @param {Function}
  */
 exports.getTracksAtPath = function (path, callback) {
@@ -2164,6 +2167,7 @@ exports.getTracksAtPath = function (path, callback) {
     }
 
     // Load standard hype pages via XHR then regex response for the tracks. Yuck
+    // console.log(body);
     var tracks = body.match(trackRegex)[1];
 
     if (tracks) {
@@ -2178,7 +2182,7 @@ exports.getTracksAtPath = function (path, callback) {
   });
 };
 
-},{"./http":13}],19:[function(_dereq_,module,exports){
+},{"./http":14}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var path = _dereq_('path')
@@ -2201,6 +2205,6 @@ exports.genApiFunction = function (base, resource) {
   };
 };
 
-},{"./tracks":18,"path":1}]},{},[14])
-(14)
+},{"./tracks":19,"path":1}]},{},[15])
+(15)
 });
