@@ -18,6 +18,9 @@
     "karma-mocha": "^0.1.4",
     "karma-mocha-reporter": "^0.2.7"
   },
+  "browser": {
+    "request": "xhr"
+  },
   "testling": {
     "harness": "mocha-bdd",
     "files": [
@@ -37,6 +40,7 @@
   "dependencies": {
     "xhr": "^1.12.0",
     "xtend": "^3.0.0",
-    "safejson": "~1.0.0"
+    "safejson": "~1.0.0",
+    "request": "~2.42.0"
   }
 }
