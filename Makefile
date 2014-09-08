@@ -11,16 +11,18 @@ srcFiles = $(shell find ./src -type f -name '*.js' | xargs)
 default: formatting
 
 # Run tests, then build the hype JavaScript bundle
-build:
-	@make formatting
+build:formatting
 	$(browserify) -s hypejs -e ./src/index.js -o ./dist/hype.js
 	@echo "Build succeeded!\n"
 
 # Test files for formatting and errors, then run tests
-test:
-	@make build
+test:build
 	$(browserify) -e ./test/index.js -o ./test/test-bundle.js
+	@echo "Runnng Browser env tests..."
 	$(karma) start
+	
+	@echo "Running Node.js env tests..."
+	$(mocha) -R spec ./test/index.js
 
 # Test file formatting and for errors
 formatting:
