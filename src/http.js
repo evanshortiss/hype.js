@@ -1,17 +1,10 @@
 'use strict';
 
-var xhr = require('xhr')
+var request = require('request')
   , url = require('url')
+  , config = require('./config')
   , xtend = require('xtend')
   , safejson = require('safejson');
-
-var HOST = 'http://hypem.com/';
-
-var DEFAULTS = {
-  method: 'GET',
-  timeout: 30000
-};
-
 
 /**
  * Perform an API request.
@@ -19,8 +12,11 @@ var DEFAULTS = {
  * @param {Object}
  * @param {Function}
  */
-function request (opts, callback) {
-  xhr(xtend(DEFAULTS, opts), callback);
+function doRequest (opts, callback) {
+  request(xtend({
+    method: 'GET',
+    timeout: config.REQ_TIMEOUT
+  }, opts), callback);
 }
 
 
@@ -31,9 +27,9 @@ function request (opts, callback) {
  * @param {Function}  callback  Callback function
  */
 exports.get = function (path, callback) {
-  request({
+  doRequest({
     method: 'GET',
-    uri: url.resolve(HOST, path)
+    uri: url.resolve(config.HOST, path)
   }, callback);
 };
 
@@ -44,11 +40,14 @@ exports.get = function (path, callback) {
  * @param {Function}  callback  Callback function
  */
 exports.getJson = function (path, callback) {
-  request({
+  doRequest({
     method: 'GET',
-    uri: url.resolve(HOST, path),
+    uri: url.resolve(config.HOST, path),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.1; en-us; GT-N7100 ' +
+        'Build/JRO03C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 ' +
+        'Mobile Safari/534.30'
     }
   }, function (err, res, body) {
     if (err) {
