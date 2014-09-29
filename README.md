@@ -1,7 +1,7 @@
 hype.js
 =======
 
-Client-side JavaScript library to consume The Hype Machine feeds.
+Node.js & client-side JavaScript library to consume The Hype Machine feeds.
 
 ## Hype Machine API
 Initially I used the Hype Machine JSON API to create this module. The issue 
